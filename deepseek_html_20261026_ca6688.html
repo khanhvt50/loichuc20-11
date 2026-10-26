@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>20/11 · Gửi em 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pink: #ff7aa8;
+    --pink-soft: #ffd6e4;
+    --deep: #b3145a;
+    --cream: #fffaf6;
+    --gold: #e9b949;
+    --ink: #4a2b38;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Quicksand', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    min-height: 100dvh;
+    display: flex;
+    padding: 28px 16px 48px;
+    overflow-x: hidden;
+    background:
+      radial-gradient(1100px 620px at 8% -5%, #ffe3ee 0%, transparent 60%),
+      radial-gradient(900px 520px at 95% 8%, #ffeede 0%, transparent 55%),
+      radial-gradient(1000px 720px at 50% 115%, #ffd6e7 0%, transparent 60%),
+      #fff7fa;
+  }
+
+  /* ---------- Cánh hoa rơi ---------- */
+  .petal {
+    position: fixed;
+    top: -40px;
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(135deg, #ffc2d8, #ff7aa8);
+    border-radius: 50% 0 50% 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translate3d(0, -10vh, 0) rotate(0deg);   opacity: 0; }
+    12%  { opacity: .85; }
+    90%  { opacity: .6; }
+    100% { transform: translate3d(var(--dx, 40px), 112vh, 0) rotate(760deg); opacity: 0; }
+  }
+
+  /* ---------- Khung chính ---------- */
+  .stage {
+    margin: auto;
+    display: grid;
+    place-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .stage > * { grid-area: 1 / 1; }
+
+  /* ---------- Phong bì ---------- */
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .intro.hide {
+    opacity: 0;
+    transform: scale(.88);
+    pointer-events: none;
+  }
+
+  .hint {
+    font-size: 15px;
+    letter-spacing: .06em;
+    color: var(--deep);
+    opacity: .75;
+    font-weight: 600;
+    animation: breathe 3s ease-in-out infinite;
+    text-align: center;
+  }
+  @keyframes breathe {
+    0%, 100% { opacity: .5; transform: translateY(0); }
+    50%      { opacity: .95; transform: translateY(-3px); }
+  }
+
+  .envelope {
+    position: relative;
+    width: min(86vw, 340px);
+    height: 230px;
+    perspective: 1100px;
+    cursor: pointer;
+    filter: drop-shadow(0 26px 40px rgba(179, 20, 90, .22));
+    transition: transform .45s cubic-bezier(.2,.8,.3,1.2);
+  }
+  .envelope:hover { transform: translateY(-7px) scale(1.02); }
+
+  .env-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background: linear-gradient(160deg, #ffd0e0, #ff9dbc);
+    z-index: 0;
+  }
+
+  .letter {
+    position: absolute;
+    left: 16px; right: 16px; top: 30px; bottom: 16px;
+    background: #fffdf9;
+    border-radius: 8px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 18px rgba(179,20,90,.14);
+    transition: transform .95s cubic-bezier(.2,.9,.25,1.05);
+  }
+  .letter-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: .85;
+  }
+  .stamp {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    color: #fff;
+    background: linear-gradient(135deg, #ff8ab4, #e0559a);
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+  .mini {
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    color: var(--deep);
+  }
+
+  .flap {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    background: linear-gradient(180deg, #ffd8e5, #ffaac8);
+    border-radius: 10px 10px 0 0;
+    transform-origin: top center;
+    transition: transform .85s cubic-bezier(.4,.1,.2,1);
+    display: grid;
+    place-items: start center;
+  }
+  .seal {
+    margin-top: 34px;
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b9d, #d61e6b);
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(214,30,107,.45);
+  }
+
+  .env-front {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: 10px;
+    clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+    background: linear-gradient(160deg, #ffc4d8, #ff92b8);
+  }
+
+  .envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+  }
+  .envelope.open .letter {
+    transform: translateY(-58%) rotate(-2deg);
+  }
+
+  .open-btn {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 14px 34px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff7aa8, #d61e6b);
+    box-shadow: 0 14px 28px -10px rgba(214, 30, 107, .75);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .open-btn:hover  { transform: translateY(-3px); box-shadow: 0 20px 34px -10px rgba(214,30,107,.8); }
+  .open-btn:active { transform: translateY(0) scale(.97); }
+
+  /* ---------- Tấm thiệp ---------- */
+  .card-wrap {
+    opacity: 0;
+    transform: translateY(46px) scale(.94);
+    pointer-events: none;
+    transition: opacity .85s cubic-bezier(.2,.8,.2,1), transform .85s cubic-bezier(.2,.8,.2,1);
+  }
+  .card-wrap.show {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .card {
+    position: relative;
+    width: min(92vw, 540px);
+    padding: clamp(26px, 5.5vw, 44px) clamp(20px, 5vw, 40px);
+    border-radius: 26px;
+    text-align: center;
+    background:
+      radial-gradient(circle at 12% 8%, #fff6fa 0%, transparent 42%),
+      linear-gradient(180deg, #fffdfa, #fff4f8);
+    border: 1px solid rgba(255,122,168,.28);
+    box-shadow:
+      0 34px 64px -24px rgba(179, 20, 90, .38),
+      0 0 0 1px rgba(255,255,255,.9) inset;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px dashed rgba(255, 122, 168, .42);
+    border-radius: 18px;
+    pointer-events: none;
+  }
+
+  .ribbon {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .3em;
+    padding: 6px 18px 6px 22px;
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(135deg, #ff8ab4, #d61e6b);
+    box-shadow: 0 8px 18px -6px rgba(214,30,107,.6);
+  }
+
+  .kicker {
+    margin-top: 18px;
+    font-size: 11px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--pink);
+    font-weight: 700;
+  }
+
+  .title {
+    font-size: clamp(26px, 6.6vw, 38px);
+    line-height: 1.18;
+    font-weight: 700;
+    margin-top: 8px;
+    color: var(--deep);
+    letter-spacing: -.01em;
+  }
+
+  .subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(20px, 4.6vw, 26px);
+    color: #d0559b;
+    margin-top: 6px;
+  }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    margin: 20px 0;
+    color: var(--pink);
+    font-size: 15px;
+  }
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    height: 1px;
+    width: clamp(40px, 18vw, 96px);
+    background: linear-gradient(90deg, transparent, rgba(255,122,168,.65), transparent);
+  }
+
+  .card-body {
+    text-align: left;
+    font-size: clamp(14.5px, 3.7vw, 16px);
+    line-height: 1.85;
+    color: #5b3b48;
+  }
+  .card-body p + p { margin-top: 14px; }
+
+  .dear {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(24px, 5.6vw, 30px);
+    color: var(--deep);
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .highlight {
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255,214,228,.75), rgba(255,238,222,.75));
+    border-left: 3px solid var(--pink);
+    font-weight: 600;
+    color: #7a2a52;
+  }
+
+  .sign {
+    margin-top: 20px !important;
+    text-align: right;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(20px, 4.6vw, 25px);
+    color: var(--deep);
+  }
+
+  .card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 28px;
+  }
+
+  .btn {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 24px;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #ff7aa8, #d61e6b);
+    box-shadow: 0 14px 26px -10px rgba(214,30,107,.8);
+  }
+  .btn-primary:hover { transform: translateY(-3px); }
+
+  .btn-ghost {
+    color: var(--deep);
+    background: #fff;
+    border: 1.5px solid rgba(255,122,168,.55);
+    box-shadow: 0 10px 22px -14px rgba(179,20,90,.5);
+  }
+  .btn-ghost:hover { background: #fff0f6; transform: translateY(-3px); }
+
+  /* ---------- Hiệu ứng bung hoa ---------- */
+  .burst {
+    position: fixed;
+    font-size: 26px;
+    pointer-events: none;
+    z-index: 999;
+    animation: flyUp 2.4s ease-out forwards;
+  }
+  @keyframes flyUp {
+    0%   { transform: translate(0, 0) rotate(0deg) scale(.4); opacity: 0; }
+    15%  { opacity: 1; }
+    100% { transform: translate(var(--tx, 0), -72vh) rotate(var(--r, 0deg)) scale(1.15); opacity: 0; }
+  }
+
+  @media (max-width: 380px) {
+    .card-actions { flex-direction: column; }
+    .btn { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .petal, .hint { animation: none; }
+    * { transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<main class="stage">
+
+  <!-- ===== PHONG BÌ ===== -->
+  <section class="intro" id="intro">
+    <p class="hint">Có một lá thư nhỏ đang chờ em…</p>
+
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Nhấn để mở thư">
+      <div class="env-back"></div>
+      <div class="letter">
+        <div class="letter-inner">
+          <span class="stamp">20 · 11</span>
+          <span class="mini">Gửi em ❤</span>
+        </div>
+      </div>
+      <div class="flap"><span class="seal">❤</span></div>
+      <div class="env-front"></div>
+    </div>
+
+    <button class="open-btn" id="openBtn" type="button">Mở thư 💌</button>
+  </section>
+
+  <!-- ===== THIỆP ===== -->
+  <section class="card-wrap" id="cardWrap">
+    <article class="card">
+      <div class="ribbon">20 · 11</div>
+
+      <p class="kicker">Vietnamese Teachers' Day</p>
+      <h1 class="title">Chúc Mừng<br>Ngày Nhà Giáo</h1>
+      <p class="subtitle">Gửi đến cô gái nhỏ của anh 💐</p>
+
+      <div class="ornament"><span>❀</span></div>
+
+      <div class="card-body">
+        <p class="dear">Em thân mến,</p>
+
+        <p>Hôm nay là 20/11 — ngày của những người gieo chữ. Và trong tất cả những người anh biết,
+           em là người khiến anh tin rằng nghề giáo không chỉ là dạy học, mà còn là trao đi yêu thương.</p>
+
+        <p>Chúc em thật nhiều sức khoẻ, luôn giữ được nụ cười rạng rỡ như nắng sớm, và mãi là người
+           truyền lửa cho những đứa trẻ may mắn được học em.</p>
+
+        <p>Cảm ơn em vì đã xuất hiện, vì đã làm những ngày bình thường của anh trở nên đáng mong chờ.</p>
+
+        <p class="highlight">Anh chưa dám nói nhiều, chỉ mong được là người mang hoa đến cho em
+           mỗi 20/11… và cả những ngày khác nữa. 🌷</p>
+
+        <p class="sign">— Người vẫn đang chờ em mỉm cười 💗</p>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-primary" id="flowerBtn" type="button">Tặng em một bó hoa 🌷</button>
+        <!-- 👉 Đổi link bên dưới thành Messenger / Zalo của bạn -->
+        <a class="btn btn-ghost" href="https://zalo.me/" target="_blank" rel="noopener">Nhắn cho anh 💬</a>
+      </div>
+    </article>
+  </section>
+
+</main>
+
+<script>
+  /* ========== 1. Cánh hoa rơi ========== */
+  (function makePetals() {
+    const box = document.getElementById('petals');
+    const count = window.innerWidth < 600 ? 14 : 24;
+
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+
+      const size = 9 + Math.random() * 11;
+      const dur  = 9 + Math.random() * 11;
+
+      p.style.left   = Math.random() * 100 + 'vw';
+      p.style.width  = size + 'px';
+      p.style.height = size + 'px';
+      p.style.opacity = 0.35 + Math.random() * 0.5;
+      p.style.setProperty('--dx', (Math.random() * 200 - 100) + 'px');
+      p.style.animationDuration = dur + 's';
+      p.style.animationDelay = (-Math.random() * dur) + 's';
+
+      box.appendChild(p);
+    }
+  })();
+
+  /* ========== 2. Mở phong bì ========== */
+  const envelope = document.getElementById('envelope');
+  const intro    = document.getElementById('intro');
+  const cardWrap = document.getElementById('cardWrap');
+  const openBtn  = document.getElementById('openBtn');
+  let opened = false;
+
+  function openLetter() {
+    if (opened) return;
+    opened = true;
+    envelope.classList.add('open');
+
+    setTimeout(() => intro.classList.add('hide'), 1250);
+    setTimeout(() => { intro.style.display = 'none'; }, 1900);
+    setTimeout(() => {
+      cardWrap.classList.add('show');
+      burst(18);
+    }, 1500);
+  }
+
+  envelope.addEventListener('click', openLetter);
+  openBtn.addEventListener('click', openLetter);
+  envelope.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLetter(); }
+  });
+
+  /* ========== 3. Bung hoa ========== */
+  function burst(n) {
+    const emojis = ['🌸', '🌷', '🌹', '💐', '💗', '✨', '💕'];
+    for (let i = 0; i < n; i++) {
+      const el = document.createElement('span');
+      el.className = 'burst';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = (50 + (Math.random() * 44 - 22)) + 'vw';
+      el.style.bottom = (8 + Math.random() * 14) + 'vh';
+      el.style.setProperty('--tx', (Math.random() * 220 - 110) + 'px');
+      el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
+      el.style.animationDelay = (Math.random() * 0.45) + 's';
+      el.style.fontSize = (18 + Math.random() * 20) + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3200);
+    }
+  }
+
+  document.getElementById('flowerBtn').addEventListener('click', () => burst(26));
+</script>
+</body>
+</html>
