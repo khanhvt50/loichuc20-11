@@ -104,11 +104,6 @@
     .flower-image-wrap{margin-top:19px;aspect-ratio:5/4}
     .flower-button{margin-top:17px}
     .book-entry-button{margin-top:9px}
-    .zalo-bar{position:fixed;z-index:12;left:0;right:0;bottom:0;padding:10px 16px calc(10px + var(--safe-bottom));background:linear-gradient(180deg,rgba(251,246,241,0),rgba(251,246,241,.94) 25%,rgba(251,246,241,.98));backdrop-filter:blur(12px);transform:translateY(120%);opacity:0;transition:transform .45s ease,opacity .45s ease}
-    .zalo-bar.visible{transform:translateY(0);opacity:1}
-    .zalo-link{display:flex;align-items:center;justify-content:center;gap:9px;width:min(100%,500px);min-height:48px;margin:0 auto;border-radius:999px;text-decoration:none;color:white;background:#9b6177;box-shadow:0 8px 22px rgba(126,74,93,.22);font-size:12px;font-weight:700;letter-spacing:.04em}
-    .zalo-link:active{transform:scale(.985)}
-    .zalo-icon{width:21px;height:21px;border:1.5px solid rgba(255,255,255,.9);border-radius:7px;display:grid;place-items:center;font-size:10px;font-weight:700}
     .footer{padding:0 15px 25px;text-align:center;color:#ad9097;font-size:9px;letter-spacing:.15em}
     .footer span{color:#c27f91}
     .home-return-wrap{display:flex;justify-content:center;padding:12px 16px 30px}
@@ -173,7 +168,173 @@
     @media(prefers-reduced-motion:reduce){
       *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
     }
-  </style>
+  
+    .final-actions{padding:0 16px 28px;justify-content:center}
+    .final-actions button{min-width:132px}
+
+    /* Refined layout: clearer hierarchy, calmer spacing, and mobile-first controls */
+    .topbar{
+      padding-left:max(18px,calc((100vw - 560px)/2));
+      padding-right:max(18px,calc((100vw - 560px)/2));
+    }
+    .hero{padding-top:calc(100px + env(safe-area-inset-top,0px));padding-bottom:52px}
+    .hero-inner{width:min(100%,440px)}
+    .eyebrow{font-size:9px;letter-spacing:.22em}
+    .envelope-scene{margin-top:6px;margin-bottom:18px}
+    .letter-section{padding:28px 16px calc(56px + var(--safe-bottom))}
+    .letter-card{
+      width:min(100%,520px);
+      padding:30px clamp(20px,5vw,32px) 27px;
+      border-radius:10px;
+      box-shadow:0 20px 55px rgba(103,62,76,.11);
+    }
+    .letter-card:before{inset:10px;border-radius:5px}
+    .card-head{padding:4px 5px 0}
+    .card-title{font-size:clamp(31px,8vw,39px);line-height:1.16}
+    .letter-copy{max-width:430px;margin:0 auto}
+    .letter-copy p{margin-bottom:13px}
+    .wish{border-radius:0 9px 9px 0}
+    .flower-image-wrap{
+      aspect-ratio:4/3;
+      max-height:430px;
+      border-radius:8px;
+      box-shadow:0 9px 24px rgba(103,62,76,.10);
+    }
+    .flower-image{object-position:center 52%}
+    .flower-button,.book-entry-button{max-width:390px}
+    .flower-button{min-height:51px}
+    .book-entry-button{min-height:47px;background:rgba(255,253,250,.95)}
+    .footer{max-width:460px;margin:23px auto 0;padding:0 14px 8px;line-height:1.7}
+    .home-return-wrap{padding:12px 16px 34px}
+    .home-return{min-height:39px;padding:0 17px;font-size:10px}
+    .story-section{
+      width:min(100%,590px);
+      padding:26px 18px calc(58px + var(--safe-bottom));
+    }
+    .story-intro{padding:24px 10px 20px}
+    .story-intro h2{font-size:clamp(36px,9vw,43px);line-height:1.08}
+    .story-intro p{max-width:310px;margin:10px auto 0;line-height:1.5}
+    .story-personal-note{
+      max-width:430px;
+      margin:0 auto 22px;
+      padding:14px 18px;
+      border-top:1px solid rgba(160,111,126,.18);
+      border-bottom:1px solid rgba(160,111,126,.18);
+      font-size:12px;
+      line-height:1.8;
+    }
+    .book-shell{
+      max-width:520px;
+      margin:0 auto;
+      padding-left:8px;
+      filter:drop-shadow(0 16px 24px rgba(103,62,76,.12));
+    }
+    .book-page{
+      min-height:460px;
+      padding:25px 24px 20px 30px;
+      border-radius:3px 9px 9px 3px;
+    }
+    .page-content{padding:38px 0 28px}
+    .page-content h3{font-size:clamp(25px,6vw,30px)}
+    .story-text{font-size:13px;line-height:1.9}
+    .book-controls{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+      align-items:center;
+      gap:10px;
+      max-width:520px;
+      margin:20px auto 0;
+    }
+    .book-controls #prevPage{justify-self:start}
+    .book-controls #nextPage{justify-self:end}
+    .book-controls #pageProgress{grid-column:2;grid-row:1}
+    #finalPageButton{grid-column:1/-1;grid-row:2;width:100%;min-height:46px}
+    .page-control{min-height:42px;padding:0 15px}
+    .book-hint{margin:12px 0 19px;font-size:10px}
+    .skip-stories-wrap{max-width:520px;margin:0 auto 6px}
+    #skipStoriesButton{
+      width:100%;
+      min-height:43px;
+      border-style:solid;
+      border-color:rgba(169,107,127,.24);
+      background:rgba(255,253,250,.58);
+      color:#9b7180;
+      font-size:10px;
+    }
+    .final-section{
+      width:min(100% - 32px,540px);
+      min-height:0;
+      margin:32px auto 48px;
+      padding:35px clamp(22px,6vw,38px) 28px;
+      border:1px solid rgba(190,147,148,.28);
+      border-radius:12px;
+      background:
+        radial-gradient(ellipse at 100% 0,rgba(248,230,230,.58),transparent 42%),
+        linear-gradient(145deg,#fffefa,#fffaf6);
+      box-shadow:0 20px 52px rgba(103,62,76,.10);
+      position:relative;
+      overflow:hidden;
+    }
+    .final-section:before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border:1px solid rgba(198,163,106,.27);
+      border-radius:7px;
+      pointer-events:none;
+    }
+    .final-section>*{position:relative;z-index:1}
+    .final-kicker{font-size:8px;letter-spacing:.22em}
+    .final-rose{margin:17px 0 10px;font-size:39px}
+    .final-section h2{
+      max-width:410px;
+      margin:12px auto 20px;
+      font-size:clamp(30px,7.8vw,38px);
+      line-height:1.2;
+    }
+    .final-copy{
+      max-width:410px;
+      font-size:13px;
+      line-height:1.95;
+      text-align:left;
+    }
+    .final-sign{margin:25px 0 10px;font-size:23px}
+    .final-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      max-width:390px;
+      margin:24px auto 0;
+      padding:0 0 8px;
+    }
+    .final-actions button{
+      min-width:0;
+      min-height:44px;
+      padding:0 10px;
+      border-radius:999px;
+      font-size:10px;
+    }
+    .final-actions button:last-child{
+      background:linear-gradient(120deg,#bd8797,#9b6177);
+      border-color:#a96b7f;
+      color:#fff;
+      box-shadow:0 7px 17px rgba(139,79,100,.15);
+    }
+    @media(max-width:380px){
+      .letter-card{padding-left:18px;padding-right:18px}
+      .book-page{min-height:475px;padding-right:17px}
+      .page-content h3{font-size:24px}
+      .story-text{font-size:12px}
+      .page-control{padding:0 10px;font-size:9px}
+      .final-actions{grid-template-columns:1fr}
+      .final-actions button{width:100%}
+    }
+    @media(min-width:700px){
+      .letter-section{padding-top:38px}
+      .final-section{margin-top:48px;margin-bottom:60px}
+    }
+
+    </style>
 </head>
 <body>
   <div class="ambient" aria-hidden="true"><div class="glow a"></div><div class="glow b"></div></div>
@@ -227,7 +388,7 @@
         <button class="book-entry-button" id="openBookButton" type="button">Đọc tiếp · Những mùa phấn trắng <span>♡</span></button>
       </article>
       <div class="footer">MADE WITH <span>♡</span> · JUST FOR YOU<br><small style="display:block;margin-top:8px;font-size:9px;letter-spacing:.02em;text-transform:none">Music: “Emotional Love Piano Melody” by Alexander · <a href="https://orangefreesounds.com/emotional-love-piano-melody/" target="_blank" rel="noopener noreferrer" style="color:inherit">Orange Free Sounds</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" style="color:inherit">CC BY 4.0</a></small></div>
-    <div class="home-return-wrap"><a class="home-return" href="#home" data-home>⌂ Về trang đầu tiên</a></div>
+    <div class="home-return-wrap"><a class="home-return" href="#home" data-home>⌂ Về trang chủ</a></div>
     </section>
 
     <section class="story-section" id="storySection" aria-label="Tuyển tập chuyện kể ngày 20 tháng 11" hidden>
@@ -258,10 +419,10 @@
       </div>
       <p class="book-hint">Chạm “Trang tiếp” để lật từng trang sách.</p>
       <div class="skip-stories-wrap">
-        <button type="button" id="skipStoriesButton" class="page-control">Bỏ qua, tôi sẽ đọc tuyển tập truyện sau</button>
+        <button type="button" id="skipStoriesButton" class="page-control">Để truyện lại sau · Đến lời nhắn cuối</button>
       </div>
 
-      <div class="home-return-wrap"><a class="home-return" href="#home" data-home>⌂ Về trang đầu tiên</a></div>
+      <div class="home-return-wrap"><a class="home-return" href="#home" data-home>⌂ Về trang chủ</a></div>
     </section>
 
     <section class="final-section page-hidden" id="finalSection" aria-label="Lời nhắn riêng dành cho em">
@@ -271,17 +432,12 @@
       <p class="final-copy">Anh không biết hết những vất vả phía sau mỗi ngày đứng lớp, nhưng anh luôn trân trọng sự dịu dàng, kiên nhẫn và nhiệt huyết mà em dành cho công việc của mình.<br><br>Chúc em không chỉ nhận được thật nhiều hoa trong ngày 20/11, mà còn luôn nhận được sự yêu thương, trân trọng trong tất cả những ngày bình thường.<br><br>Cảm ơn em vì đã xuất hiện và khiến anh có thêm một ngày đặc biệt để nghĩ về em. Mong rằng một ngày nào đó, anh sẽ được tự tay mang bó hoa này đến tặng em.</p>
       <div class="final-sign">— Người vẫn mong em mỉm cười 💗</div>
       <div class="final-actions">
-        <button type="button" id="backToStories">← Đọc lại câu chuyện</button>
-        <button type="button" id="finalHome">⌂ Về trang đầu tiên</button>
+        <button type="button" id="backToStories">↶ Đọc lại tuyển tập</button>
+        <button type="button" id="finalHome">⌂ Về trang chủ</button>
       </div>
     </section>
   </main>
-
-  <div class="zalo-bar" id="zaloBar">
-    <!-- Liên hệ Zalo -->
-    <a class="zalo-link" href="https://zalo.me/0797613228" target="_blank" rel="noopener noreferrer"><span class="zalo-icon">Z</span> Nhắn cho anh qua Zalo</a>
-  </div>
-  <div class="toast" id="toast" role="status">Một bó hoa nhỏ dành tặng em 🌷</div>
+<div class="toast" id="toast" role="status">Một bó hoa nhỏ dành tặng em 🌷</div>
   <audio id="bgMusic" preload="none" loop playsinline>
     <source src="https://orangefreesounds.com/wp-content/uploads/2025/03/Emotional-love-piano-melody.mp3" type="audio/mpeg">
   </audio>
@@ -309,7 +465,6 @@
     const envelopeScene=document.getElementById("envelopeScene");
     const intro=document.getElementById("intro");
     const letterSection=document.getElementById("letterSection");
-    const zaloBar=document.getElementById("zaloBar");
     let opened=false;
 
     function openLetter(){
@@ -324,7 +479,6 @@
           letterSection.classList.add("show");
           letterSection.classList.remove("page-hidden");
           requestAnimationFrame(()=>requestAnimationFrame(()=>letterSection.classList.add("visible")));
-          zaloBar.classList.add("visible");
           location.hash="letter";
           flowerBurst(14);
           window.scrollTo({top:0,behavior:"smooth"});
@@ -442,7 +596,6 @@
       intro.classList.remove("hide");
       envelope.classList.remove("open");
       opened=false;
-      zaloBar.classList.remove("visible");
       location.hash="home";
       window.scrollTo({top:0,behavior:"smooth"});
     }
