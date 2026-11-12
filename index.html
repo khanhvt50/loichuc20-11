@@ -455,6 +455,49 @@
       .brand-mark { min-width: 42px; height: 27px; padding: 0 6px; font-size: 9px; }
     }
 
+  
+
+    /* Final fixes for the story screen and Vietnamese signature glyphs */
+    .story-section {
+      padding-top: calc(104px + env(safe-area-inset-top, 0px));
+      scroll-margin-top: calc(82px + env(safe-area-inset-top, 0px));
+    }
+    .story-intro {
+      padding-top: 18px;
+    }
+    /* Parisienne has incomplete Vietnamese glyph coverage on some devices.
+       Use a reliable serif italic stack for the full Vietnamese signature. */
+    .signature,
+    .final-sign {
+      font-family: Georgia, "Times New Roman", serif !important;
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: .01em;
+      line-height: 1.45;
+      font-variant-ligatures: none;
+    }
+    .signature {
+      font-size: clamp(17px, 4.8vw, 21px) !important;
+    }
+    .final-sign {
+      font-size: clamp(19px, 5vw, 23px) !important;
+    }
+    @media (max-width: 430px) {
+      .story-section {
+        padding-top: calc(112px + env(safe-area-inset-top, 0px));
+      }
+      .story-intro {
+        padding-top: 16px;
+      }
+    }
+    @media (max-width: 360px) {
+      .story-section {
+        padding-top: calc(116px + env(safe-area-inset-top, 0px));
+      }
+      .signature { font-size: 17px !important; }
+      .final-sign { font-size: 19px !important; }
+    }
+
   </style>
 </head>
 <body>
